@@ -24,6 +24,15 @@ export default function WatchParty() {
   const [showEndModal, setShowEndModal] = useState(false);
   const chatEndRef = useRef();
 
+  // --- Sync threshold (seconds) ---
+  const SYNC_THRESHOLD = 0.5;
+
+  const getPlayerTime = () =>
+    player?.getCurrentTime ? player.getCurrentTime() : 0;
+  const seekPlayer = (time) => player?.seekTo && player.seekTo(time, true);
+  const playPlayer = () => player?.playVideo && player.playVideo();
+  const pausePlayer = () => player?.pauseVideo && player.pauseVideo();
+
   // --- SOCKET ---
   useEffect(() => {
     socket.emit("joinWatchRoom", { roomId, userId: myProfile._id });
@@ -55,27 +64,40 @@ export default function WatchParty() {
       setCurrentVideo(d.currentVideo);
       setVideoQueue(d.videoQueue);
     });
+
     socket.on("videoChanged", (d) => {
       setCurrentVideo(d.currentVideo);
       setVideoQueue(d.videoQueue);
     });
+
     socket.on("watchPartyEnded", () => {
       navigate("/watch");
     });
+
     socket.on("watchChatMessage", (msg) =>
       setChatMessages((prev) => [...prev, msg])
     );
+
+    // ✅ Smooth sync on play
     socket.on("watchPlay", ({ currentTime }) => {
-      if (player) {
-        player.seekTo(currentTime, true);
-        player.playVideo();
+      if (!player) return;
+      const localTime = getPlayerTime();
+      const diff = Math.abs(localTime - currentTime);
+      if (diff > SYNC_THRESHOLD) {
+        seekPlayer(currentTime);
       }
+      playPlayer();
     });
+
+    // ✅ Smooth sync on pause
     socket.on("watchPause", ({ currentTime }) => {
-      if (player) {
-        player.seekTo(currentTime, true);
-        player.pauseVideo();
+      if (!player) return;
+      const localTime = getPlayerTime();
+      const diff = Math.abs(localTime - currentTime);
+      if (diff > SYNC_THRESHOLD) {
+        seekPlayer(currentTime);
       }
+      pausePlayer();
     });
 
     return () => {
@@ -84,12 +106,19 @@ export default function WatchParty() {
     };
   }, [roomId, myProfile._id, player, navigate]);
 
-  // Actions
-  const onPlayerReady = (e) => setPlayer(e.target);
+  // ✅ Emit events only when needed (avoid spam)
+  const lastEmit = useRef({ play: 0, pause: 0 });
   const emitEvent = (evt) => {
-    if (player)
-      socket.emit(evt, { roomId, currentTime: player.getCurrentTime() });
+    if (!player) return;
+    const nowTime = getPlayerTime();
+    const lastTime = lastEmit.current[evt.includes("Play") ? "play" : "pause"];
+    if (Math.abs(nowTime - lastTime) > SYNC_THRESHOLD) {
+      socket.emit(evt, { roomId, currentTime: nowTime });
+      lastEmit.current[evt.includes("Play") ? "play" : "pause"] = nowTime;
+    }
   };
+
+  const onPlayerReady = (e) => setPlayer(e.target);
   const addVideo = (id, title) =>
     socket.emit("addVideoToQueue", { roomId, videoId: id, title });
   const skipVideo = () => socket.emit("skipVideo", { roomId });
@@ -111,7 +140,6 @@ export default function WatchParty() {
     });
     setInviteBox(false);
   };
-
   const confirmEndStream = async () => {
     await axiosClient.delete(`/watchParty/end/${roomId}`);
     navigate("/watch");
@@ -230,11 +258,40 @@ export default function WatchParty() {
           <div className="chat-area">
             {chatMessages.map((m, i) => (
               <div key={i} className="chat-row">
-                <img
-                  src={m.user?.avatar?.url || "/default-avatar.png"}
-                  alt=""
-                  className="chat-avatar"
-                />
+                {m.user?.avatar?.url ? (
+                  <img
+                    src={m.user.avatar.url}
+                    alt={m.user.name}
+                    className="chat-avatar"
+                    style={{ objectFit: "cover" }}
+                    onError={(e) => {
+                      // if image fails to load, fallback to showing initials
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.style.display = "none"; // hide broken image
+                      e.currentTarget.nextSibling.style.display = "flex"; // show initials div
+                    }}
+                  />
+                ) : null}
+                {!m.user?.avatar?.url && (
+                  <div
+                    className="avatar-placeholder"
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      backgroundColor: "#ccc",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "#555",
+                      fontWeight: "bold",
+                      fontSize: "1.1rem",
+                      userSelect: "none",
+                    }}
+                  >
+                    {m.user?.name ? m.user.name[0].toUpperCase() : "U"}
+                  </div>
+                )}
                 <div className="chat-message-box">
                   <b>{m.user?.name}</b>
                   <div>{m.message}</div>
