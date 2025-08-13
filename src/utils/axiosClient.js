@@ -6,9 +6,7 @@ import { setLoading, showToast } from "../redux/slice/appConfigSlice";
 import { TOAST_FAILURE } from "../App";
 
 let baseURL = "https://blinksybackend.onrender.com";
-if (process.env.NODE_ENV === "production") {
-  baseURL = process.env.REACT_APP_SERVER_BASE_URL;
-}
+
 
 export const axiosClient = axios.create({
   baseURL,
