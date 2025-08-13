@@ -1,0 +1,106 @@
+.navbar {
+  padding: 10px 20px;
+  height: 80px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 10px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+
+  .container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .navbar-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      img {
+        height: 60px;
+        width: 60px;
+        object-fit: contain;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .right-side {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      /* Generic icon button style */
+      .icon-btn {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        cursor: pointer;
+        color: #1976d2; /* Blue by default */
+        background: none;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: rgba(25, 118, 210, 0.06); /* Light blue hover background */
+          color: #1565c0; /* Darker blue on hover */
+          transform: scale(1.1);
+        }
+      }
+
+      /* Special hover for logout to indicate danger */
+      .icon-btn.logout:hover {
+        color: #d32f2f;
+        background-color: rgba(211, 47, 47, 0.06);
+      }
+
+      /* Watch Party invitation badge */
+      .watchparty {
+        position: relative;
+
+        span {
+          position: absolute;
+          top: -4px;
+          right: -4px;
+          background: red;
+          color: #fff;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          font-size: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      /* Profile Avatar */
+      .profile {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+/* index.css */
+
+/* CSS Reset */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+
+  /* Hide scrollbar globally but keep scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  overflow-y: scroll; /* Ensure vertical scroll works */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Define CSS Variables for color palette */
+:root {
+  --primary-color: #3b82f6; /* Tailwind blue-500 */
+  --accent-color: #458eff;
+  --card-bg: #fff;
+  --background-color: #f9fafb;
+  --text-color: #1f2937;
+  --hover-bg: #e0e7ff;
+  --border-color: #ddd;
+}
+
+/* Base text and background */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #212121;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+/* Special adjustments for h3 and h6 as before */
+h3,
+h6 {
+  font-weight: 400;
+}
+
+/* Paragraphs */
+p {
+  color: var(--text-color);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Links and hoverable text */
+a,
+.hover-link {
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+a:hover,
+.hover-link:hover {
+  color: var(--accent-color);
+}
+
+.hover-link:active {
+  color: red;
+}
+
+/* Container */
+.container {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: bold;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #5f9fff;
+}
+
+.btn-primary:active {
+  background-color: var(--accent-color);
+}
+
+/* Secondary button */
+.btn-secondary {
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #ddd;
+}
+
+.btn-secondary:active {
+  background: none;
+}

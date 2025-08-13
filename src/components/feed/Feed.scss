@@ -1,0 +1,101 @@
+:root {
+  --primary-color: #3b82f6; /* Tailwind blue-500 */
+  --card-bg: #fff;
+  --background-color: #f9fafb;
+  --text-color: #1f2937; /* Tailwind gray-800 */
+  --hover-bg: #e0e7ff; /* light blue */
+  --border-color: #e5e7eb;
+}
+
+.Feed {
+  height: calc(100vh - 60px);
+  padding: 20px 20px 0;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  .container {
+    display: flex;
+    gap: 100px;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .left-part {
+    width: 65%;
+    height: 100%;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    padding: 16px;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .right-part {
+    width: 32%;
+    margin-top: 0px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    padding: 20px;
+
+    /* Sticky position - stays visible when left-part scrolls */
+    position: sticky;
+    top: 0px; /* navbar height (60px) + 20px margin */
+    align-self: flex-start; /* prevent stretching */
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .following,
+    .suggestions {
+      .title {
+        margin-bottom: 16px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 6px;
+        letter-spacing: 0.02em;
+      }
+
+      
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .Feed {
+    padding: 10px;
+
+    .container {
+      flex-direction: column;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .left-part,
+    .right-part {
+      width: 100%;
+      margin: 0 0 20px 0;
+      height: auto;
+      position: static !important; /* disable sticky on mobile */
+      align-self: auto;
+      top: auto;
+    }
+
+    .right-part {
+      margin-top: 0;
+    }
+  }
+}

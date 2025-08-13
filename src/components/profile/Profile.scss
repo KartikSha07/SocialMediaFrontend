@@ -1,0 +1,170 @@
+.Profile {
+  height: 100%; /* ensure full height */
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+
+  .container {
+    display: flex;
+    gap: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .left-part {
+    width: 60%;
+    height: 100%;
+    padding-bottom: 20px;
+    overflow-y: auto;
+
+    /* Hide scrollbar but keep scroll */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .right-part {
+    width: 28%;
+    margin-top: 20px;
+    height: fit-content;
+
+    .profile-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      padding: 30px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      .user-img {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
+        border: 3px solid var(--primary-color);
+        user-select: none;
+      }
+
+      .userName {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin: 0;
+        user-select: none;
+      }
+
+      .bio {
+        margin-top: 4px;
+        font-weight: 400;
+        font-size: 1rem;
+        color: var(--text-color);
+        min-height: 36px; /* keep space even if empty */
+        user-select: text;
+      }
+
+      .follower-info {
+        margin-top: 16px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text-color);
+
+        h4 {
+          cursor: default;
+          user-select: none;
+        }
+      }
+
+      /* Follow / Unfollow button */
+      .follow-link,
+      .btn-primary {
+        margin-top: 30px;
+        padding: 10px 32px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 28px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        user-select: none;
+        display: inline-block;
+        border: 2px solid var(--primary-color);
+      }
+
+      .follow-link {
+        color: var(--primary-color);
+        background-color: transparent;
+
+        &:hover {
+          background-color: var(--hover-bg);
+          border-color: var(--primary-color);
+          color: var(--primary-color);
+        }
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+
+        &:hover {
+          background-color: #2563eb; /* Slightly darker */
+        }
+      }
+
+      /* Update profile button */
+      .update-profile {
+        margin-top: 20px;
+        padding: 10px 38px;
+        font-weight: 600;
+        border-radius: 28px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: 2px solid var(--accent-color);
+        background: none;
+        color: var(--accent-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        user-select: none;
+
+        &:hover {
+          background-color: var(--accent-color);
+          color: white;
+        }
+
+        &:active {
+          background-color: #3570d9;
+          border-color: #3570d9;
+        }
+      }
+    }
+  }
+
+  /* Responsive */
+
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+      max-width: 100%;
+      gap: 16px;
+    }
+    .left-part,
+    .right-part {
+      width: 100%;
+      margin-top: 0;
+      height: auto;
+      padding-bottom: 0;
+    }
+    .right-part {
+      margin-top: 0;
+    }
+  }
+}

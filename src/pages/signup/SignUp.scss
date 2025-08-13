@@ -1,0 +1,102 @@
+.signup {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #7acea6 0%, #52a7ff 100%);
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+
+  .signup-box {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    min-width: 340px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 6px 32px 0 rgba(44, 62, 80, 0.16);
+    gap: .7rem;
+    animation: pop-in 0.6s cubic-bezier(.6,.8,0,1.12);
+
+    .heading {
+      text-align: center;
+      font-weight: 700;
+      color: #225e47;
+      margin-bottom: 1.2rem;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    label {
+      margin: 0.2rem 0 0.1rem 0;
+      color: #7b8ca1;
+      font-size: 0.97rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="text"].password {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #b1e0d5;
+      background: #f6fefc;
+      transition: border-color 0.2s;
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+
+      &:focus {
+        border: 1.7px solid #5fbd99;
+        background: #fff;
+        outline: none;
+      }
+    }
+
+    .submit {
+      margin-top: 1rem;
+      width: 100%;
+      background: linear-gradient(92deg, #38c976 30%, #5cb5ff 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.08rem;
+      padding: 0.72rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 3px 16px 0 rgba(50, 163, 182, 0.10);
+      transition: background 0.18s, transform 0.12s;
+      letter-spacing: 2px;
+
+      &:hover {
+        background: linear-gradient(100deg, #1da158 25%, #0a97d0 100%);
+        transform: translateY(-2px) scale(1.025);
+      }
+    }
+
+    p {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.99rem;
+      color: #7b8ca1;
+
+      a {
+        color: #00ba86;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+        &:hover {
+          color: #225e47;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.95) translateY(30px); opacity: 0.24;}
+  100% { transform: none; opacity: 1;}
+}

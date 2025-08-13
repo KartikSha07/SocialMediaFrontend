@@ -1,0 +1,95 @@
+.messages-container {
+  display: flex;
+  height: calc(100vh - 80px); /* fill below navbar */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+.chat-list-panel {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #eee;
+  background: #fafafa;
+  overflow-y: auto;
+}
+
+/* Stick top sections */
+.chat-list-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  font-weight: bold;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.back-to-feed-btn {
+  background: none;
+  border: none;
+  color: #3797f0;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.chat-list-search {
+  padding: 10px;
+}
+
+.chat-list-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+.chat-list-label {
+  margin: 8px 10px 4px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* RIGHT PANEL */
+.chat-window-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* let child manage its scroll */
+}
+
+.no-chat-selected {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+/* Responsive: stack panels on small screens */
+@media (max-width: 768px) {
+  .messages-container {
+    flex-direction: column;
+    height: 100vh; /* extend height for scroll areas */
+  }
+
+  .chat-list-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    height: 50vh; /* half screen height for list */
+    overflow-y: auto; /* enable scroll for list like chat messages */
+  }
+
+  .chat-window-panel {
+    height: 50vh; /* other half for DirectChat */
+  }
+}
